@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	View,
 	Text,
@@ -11,10 +11,30 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Button } from '../../components';
 import styles from './styles';
+import { auth } from '../../../firebase';
 
 const Login = ({ navigation }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((authUser) => {
+			if (authUser) {
+				navigation.replace('Home');
+			}
+		});
+		return unsubscribe;
+	}, []);
+
+	const signInHanlder = () => {
+		auth
+			.signInWithEmailAndPassword(email, password)
+			.then((user) => {
+				console.log('userprof', user.displayName);
+			})
+			.catch((error) => alert(error.message));
+	};
+	// const passwordReset = (email) => auth.sendPasswordResetEmail(email);
 	return (
 		<SafeAreaView style={styles.container}>
 			<ScrollView contentContainerStyle={styles.mainView}>
@@ -59,11 +79,7 @@ const Login = ({ navigation }) => {
 					</View>
 				</View>
 				<View style={styles.btnView}>
-					<Button
-						text='Sign In'
-						disabled={false}
-						onPress={() => navigation.navigate('Home')}
-					/>
+					<Button text='Sign In' disabled={false} onPress={signInHanlder} />
 					<TouchableWithoutFeedback>
 						<Text
 							style={styles.primaryText}

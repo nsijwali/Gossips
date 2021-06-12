@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
 	View,
 	Text,
@@ -6,18 +6,35 @@ import {
 	TextInput,
 	ScrollView,
 	TouchableWithoutFeedback,
+	KeyboardAvoidingView,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Button } from '../../../components';
 import styles from '../styles';
+import { auth } from '../../../../firebase';
+import { GlobalContext } from '../../../../GlobalContext';
 
 const CreateAccount = ({ navigation }) => {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const { setuserName } = useContext(GlobalContext);
+
+	const signupHandler = () => {
+		auth
+			.createUserWithEmailAndPassword(email, password)
+			.then((authUser) => {
+				setuserName(firstName);
+				authUser.user.updateProfile({
+					displayName: firstName,
+				});
+			})
+			.catch((error) => alert(error.message));
+		// navigation.navigate('Home');
+	};
 	return (
-		<SafeAreaView style={styles.container}>
+		<SafeAreaView behavior='padding' style={styles.container}>
 			<ScrollView contentContainerStyle={styles.mainView}>
 				<View>
 					<Text style={styles.textStyle}>
@@ -81,11 +98,7 @@ const CreateAccount = ({ navigation }) => {
 					</View>
 				</View>
 				<View style={styles.btnView}>
-					<Button
-						text='Sign Up'
-						disabled={false}
-						onPress={() => navigation.navigate('Home')}
-					/>
+					<Button text='Sign Up' disabled={false} onPress={signupHandler} />
 					<TouchableWithoutFeedback>
 						<Text
 							style={styles.primaryText}

@@ -13,9 +13,12 @@ export default StyleSheet.create({
 	mainView: {
 		flexGrow: 1,
 		// paddingTop: RFValue(60),
-		// paddingHorizontal: 20,
+		paddingHorizontal: 20,
 		alignItems: 'center',
 		justifyContent: 'center',
 		// justifyContent: 'space-between',
 	},
+	// btnStyle2: {
+	// 	d,
+	// },
 });
