@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Text, View, RefreshControl } from 'react-native';
-import { SafeAreaView } from 'react-native';
+import { Text, View, RefreshControl, SafeAreaView } from 'react-native';
 import { Button } from '../../components';
 import styles from './styles';
 import { auth } from '../../../firebase';
 import { ScrollView } from 'react-native-gesture-handler';
+import { GlobalContext } from '../../../GlobalContext';
 
 function index(props) {
 	const { navigation } = props;
 	const [visible, setVisible] = useState(false);
 	const [refreshing, setRefreshing] = React.useState(false);
+	const { username } = useContext(GlobalContext);
 
 	const onRefresh = () => {
 		setRefreshing(true);
@@ -19,13 +20,16 @@ function index(props) {
 	};
 
 	useEffect(() => {
-		setVisible(true);
-	}, []);
+		if (username === '') {
+			setTimeout(() => {
+				setVisible(true);
+			}, 2000);
+		}
+	}, [username]);
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((authUser) => {
 			if (authUser) {
-				console.log('wel', authUser.displayName);
 				navigation.replace('Home');
 			}
 		});
@@ -41,12 +45,11 @@ function index(props) {
 				}
 			>
 				<View style={styles.mainView}>
-					<Text style={styles.textStyle}>Coinbase</Text>
-					<Text style={styles.textStyle}>Clone</Text>
+					<Text style={styles.textStyle}>Gossips</Text>
 					{visible && (
 						<View style={styles.bottomView}>
 							<Button
-								text='Get Started'
+								text='Sign Up'
 								disable={false}
 								btnStyle={styles.btnStyle}
 								btnTextStyle={styles.btnTextStyle}

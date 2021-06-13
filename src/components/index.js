@@ -1,3 +1,4 @@
 import Button from './Button';
+import InputPassword from './Password';
 
-export { Button };
+export { Button, InputPassword };

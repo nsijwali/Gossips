@@ -6,10 +6,9 @@ import {
 	TextInput,
 	ScrollView,
 	TouchableWithoutFeedback,
-	KeyboardAvoidingView,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { Button } from '../../../components';
+import { Button, InputPassword } from '../../../components';
 import styles from '../styles';
 import { auth } from '../../../../firebase';
 import { GlobalContext } from '../../../../GlobalContext';
@@ -31,7 +30,6 @@ const CreateAccount = ({ navigation }) => {
 				});
 			})
 			.catch((error) => alert(error.message));
-		// navigation.navigate('Home');
 	};
 	return (
 		<SafeAreaView behavior='padding' style={styles.container}>
@@ -71,17 +69,15 @@ const CreateAccount = ({ navigation }) => {
 							placeholder='johnsmith@gmail.com'
 							onChangeText={(text) => setEmail(text)}
 							style={styles.textInputStyles}
+							autoCapitalize='none'
 						/>
 					</View>
 					<View style={styles.setMargin}>
 						<Text style={styles.textStyle1}>Password</Text>
-						<TextInput
-							value={password}
-							placeholder='*******'
-							onChangeText={(text) => setPassword(text)}
-							style={styles.textInputStyles}
-							secureTextEntry={true}
-							autoCorrect={false}
+						<InputPassword
+							password={password}
+							setPassword={(text) => setPassword(text)}
+							styles={styles.textInputStyles}
 						/>
 					</View>
 					<View style={styles.section}>

@@ -9,7 +9,7 @@ import {
 	TouchableWithoutFeedback,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { Button } from '../../components';
+import { Button, InputPassword } from '../../components';
 import styles from './styles';
 import { auth } from '../../../firebase';
 
@@ -29,9 +29,6 @@ const Login = ({ navigation }) => {
 	const signInHanlder = () => {
 		auth
 			.signInWithEmailAndPassword(email, password)
-			.then((user) => {
-				console.log('userprof', user.displayName);
-			})
 			.catch((error) => alert(error.message));
 	};
 	// const passwordReset = (email) => auth.sendPasswordResetEmail(email);
@@ -60,13 +57,10 @@ const Login = ({ navigation }) => {
 					</View>
 					<View style={styles.setMargin}>
 						<Text style={styles.textStyle1}>Password</Text>
-						<TextInput
-							value={password}
-							placeholder='*******'
-							onChangeText={(text) => setPassword(text)}
-							style={styles.textInputStyles}
-							secureTextEntry={true}
-							autoCorrect={false}
+						<InputPassword
+							password={password}
+							setPassword={(text) => setPassword(text)}
+							styles={styles.textInputStyles}
 						/>
 					</View>
 					<View style={styles.flexRowView}>

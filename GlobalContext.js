@@ -13,7 +13,7 @@ const GlobalContextProvider = (props) => {
 			}
 		});
 		return unsubscribe;
-	}, [auth]);
+	}, []);
 
 	return (
 		<GlobalContext.Provider value={{ username, setuserName }}>
