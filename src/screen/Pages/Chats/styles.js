@@ -5,8 +5,6 @@ import colors from '../../../resources/color';
 export default StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: colors.white,
-		paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
 	},
 	mainView: {
 		flexGrow: 1,
@@ -15,6 +13,12 @@ export default StyleSheet.create({
 		paddingHorizontal: RFValue(20),
 		justifyContent: 'space-between',
 	},
+	footer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		width: '100%',
+		paddingHorizontal: RFValue(15),
+	},
 	textView: {
 		flexDirection: 'row',
 		alignItems: 'center',
@@ -22,22 +26,12 @@ export default StyleSheet.create({
 		marginTop: 15,
 		paddingHorizontal: Platform.OS === 'web' ? 0 : RFValue(20),
 	},
-	textStyle: {
-		fontWeight: 'bold',
-		fontSize: RFValue(20),
-	},
-	textStyle1: {
-		fontWeight: 'bold',
-		fontSize: RFValue(14),
-	},
-	textStyle2: {
-		flex: 1,
-		fontSize: RFValue(15),
-		color: colors.meduimGrey,
-	},
-	btnStyle: {
-		backgroundColor: colors.white,
-		marginTop: 20,
+	addChatView: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		margin: 10,
+		paddingHorizontal: Platform.OS === 'web' ? 0 : RFValue(20),
 	},
 	flexRowView: {
 		marginTop: 30,
@@ -45,38 +39,80 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
-	setMargin: {
-		marginTop: 15,
+	topView: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		// width: '100%',
 	},
 	textInputStyles: {
 		height: RFValue(45),
 		paddingHorizontal: 20,
 		fontSize: RFValue(15),
 		borderWidth: 1,
-		borderRadius: 4,
+		borderRadius: 50,
 		borderColor: colors.meduimGrey,
+		backgroundColor: colors.white,
 		width: '100%',
 	},
 	btnView: {
-		marginVertical: 20,
+		bottom: 0,
+		height: RFValue(40),
+		flex: 1,
+		marginRight: RFValue(15),
+		borderWidth: 1,
+		borderRadius: 50,
+		borderColor: colors.meduimGrey,
+		backgroundColor: colors.white,
+		padding: 10,
 	},
 	primaryText: {
 		fontSize: RFValue(14),
 		color: colors.meduimGrey,
-		width: '100%',
-		textAlign: 'center',
-		paddingTop: 5,
 	},
-	linkStyle: {
+	userText: {
+		fontSize: RFValue(12),
+		color: colors.meduimGrey,
+	},
+
+	currentUserText: {
 		fontSize: RFValue(14),
-		color: colors.primaryBlue,
+		// color: colors.primaryBlue,
+		// borderRadius: 20,
+		// // borderColor: colors.meduimGrey,
+		// backgroundColor: colors.white,
+		// margin: 10,
+		padding: RFValue(10),
 	},
-	linkStyle2: {
-		fontSize: RFValue(15),
-		color: colors.primaryBlue,
+	receiver: {
+		padding: RFValue(15),
+		alignSelf: 'flex-end',
+		marginRight: 15,
+		marginBottom: 10,
+		maxHeight: '80%',
+		position: 'relative',
+		borderRadius: 20,
+		// borderColor: colors.meduimGrey,
+		backgroundColor: colors.white,
 	},
-	section: {
-		marginTop: 20,
-		flexDirection: 'row',
+	sender: {
+		padding: RFValue(15),
+		alignSelf: 'flex-start',
+		margin: 10,
+		maxHeight: '80%',
+		position: 'relative',
+		borderRadius: 20,
+		// borderColor: colors.meduimGrey,
+		backgroundColor: colors.white,
+	},
+	receivedText: {
+		fontSize: RFValue(14),
+		// color: colors.primaryBlue,
+
+		// margin: 10,
+		padding: RFValue(10),
+	},
+	keyboard: {
+		flex: 1,
 	},
 });

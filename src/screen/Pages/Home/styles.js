@@ -10,4 +10,18 @@ export default StyleSheet.create({
 	mainView: {
 		flexGrow: 1,
 	},
+	floatingIcon: {
+		height: RFValue(50),
+		position: 'absolute',
+		borderWidth: 1,
+		borderRadius: 50,
+		borderColor: colors.meduimGrey,
+		backgroundColor: colors.meduimGrey,
+		width: RFValue(50),
+		alignItems: 'center',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		bottom: 30,
+		right: RFValue(30),
+	},
 });

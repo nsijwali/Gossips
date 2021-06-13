@@ -24,7 +24,9 @@ const Home = ({ navigation }) => {
 			navigation.replace('Splash');
 		});
 	};
-	const createChat = () => {};
+	const createChat = () => {
+		navigation.navigate('AddChat');
+	};
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
@@ -33,21 +35,14 @@ const Home = ({ navigation }) => {
 			headerStyle: {
 				backgroundColor: 'white',
 			},
-			headerTitleStyle: { color: '#000', textAlign: 'center' },
+			headerTitleStyle: { color: 'black', textAlign: 'center' },
 			headerTintColor: {
-				color: '#000',
+				color: 'black',
 			},
 			headerRight: () => (
 				<View style={{ paddingRight: 20, flexDirection: 'row' }}>
-					<TouchableOpacity
-						activeOpacity={0.5}
-						onPress={signOutHandler}
-						style={{ marginRight: 10 }}
-					>
+					<TouchableOpacity activeOpacity={0.5} onPress={signOutHandler}>
 						<AntDesign name={'logout'} size={24} />
-					</TouchableOpacity>
-					<TouchableOpacity activeOpacity={0.5} onPress={createChat}>
-						<Ionicons name={'chatbox-outline'} size={24} />
 					</TouchableOpacity>
 				</View>
 			),
@@ -76,6 +71,11 @@ const Home = ({ navigation }) => {
 			>
 				<View>
 					<Chats navigation={navigation} />
+				</View>
+				<View style={styles.floatingIcon}>
+					<TouchableOpacity activeOpacity={0.5} onPress={createChat}>
+						<Ionicons name={'chatbox-outline'} size={30} color='white' />
+					</TouchableOpacity>
 				</View>
 			</ScrollView>
 		</SafeAreaView>

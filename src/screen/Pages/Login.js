@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
 	View,
 	Text,
@@ -12,10 +12,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Button, InputPassword } from '../../components';
 import styles from './styles';
 import { auth } from '../../../firebase';
+import { GlobalContext } from '../../../GlobalContext';
 
 const Login = ({ navigation }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const { setUserPassword } = useContext(GlobalContext);
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -59,7 +61,10 @@ const Login = ({ navigation }) => {
 						<Text style={styles.textStyle1}>Password</Text>
 						<InputPassword
 							password={password}
-							setPassword={(text) => setPassword(text)}
+							setPassword={(text) => {
+								setPassword(text);
+								setUserPassword(text);
+							}}
 							styles={styles.textInputStyles}
 						/>
 					</View>

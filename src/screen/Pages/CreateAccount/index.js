@@ -18,7 +18,7 @@ const CreateAccount = ({ navigation }) => {
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const { setuserName } = useContext(GlobalContext);
+	const { setuserName, setUserPassword } = useContext(GlobalContext);
 
 	const signupHandler = () => {
 		auth
@@ -76,7 +76,10 @@ const CreateAccount = ({ navigation }) => {
 						<Text style={styles.textStyle1}>Password</Text>
 						<InputPassword
 							password={password}
-							setPassword={(text) => setPassword(text)}
+							setPassword={(text) => {
+								setPassword(text);
+								setUserPassword(text);
+							}}
 							styles={styles.textInputStyles}
 						/>
 					</View>

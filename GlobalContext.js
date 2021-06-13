@@ -5,6 +5,7 @@ export const GlobalContext = createContext();
 
 const GlobalContextProvider = (props) => {
 	const [username, setuserName] = useState('');
+	const [userPassword, setUserPassword] = useState('');
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -16,7 +17,9 @@ const GlobalContextProvider = (props) => {
 	}, []);
 
 	return (
-		<GlobalContext.Provider value={{ username, setuserName }}>
+		<GlobalContext.Provider
+			value={{ username, setuserName, userPassword, setUserPassword }}
+		>
 			{props.children}
 		</GlobalContext.Provider>
 	);

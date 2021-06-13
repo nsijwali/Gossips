@@ -18,11 +18,6 @@ export default StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: RFValue(15),
 	},
-	iconStyle: {
-		width: RFValue(20),
-		height: RFValue(25),
-		tintColor: colors.white,
-	},
 	btnStyle: {
 		backgroundColor: colors.white,
 		marginTop: 20,

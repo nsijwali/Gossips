@@ -22,9 +22,6 @@ const Button = ({
 			>
 				{text}
 			</Text>
-			{icon && (
-				<Image source={icon} resizeMode='contain' style={styles.iconStyle} />
-			)}
 		</TouchableOpacity>
 	);
 };
