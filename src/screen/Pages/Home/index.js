@@ -53,7 +53,7 @@ const Home = ({ navigation }) => {
 			),
 			headerLeft: () => (
 				<View style={{ paddingLeft: 20 }}>
-					<Text>Hello, {auth.currentUser.displayName || username}</Text>
+					<Text>Hello, {auth?.currentUser?.displayName || username}</Text>
 				</View>
 			),
 		});
