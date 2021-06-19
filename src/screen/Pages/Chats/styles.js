@@ -67,7 +67,7 @@ export default StyleSheet.create({
 		padding: 10,
 	},
 	primaryText: {
-		fontSize: RFValue(14),
+		fontSize: RFValue(12),
 		color: colors.meduimGrey,
 	},
 	userText: {
@@ -77,26 +77,24 @@ export default StyleSheet.create({
 
 	currentUserText: {
 		fontSize: RFValue(14),
-		// color: colors.primaryBlue,
-		// borderRadius: 20,
-		// // borderColor: colors.meduimGrey,
-		// backgroundColor: colors.white,
-		// margin: 10,
-		padding: RFValue(10),
+		padding: RFValue(0),
 	},
 	receiver: {
-		padding: RFValue(15),
+		padding: RFValue(10),
 		alignSelf: 'flex-end',
+		marginTop: 10,
 		marginRight: 15,
 		marginBottom: 10,
 		maxHeight: '80%',
 		position: 'relative',
 		borderRadius: 20,
 		// borderColor: colors.meduimGrey,
-		backgroundColor: colors.white,
+		backgroundColor: '#E9EAFC',
+		maxWidth: '75%',
+		width: '45%',
 	},
 	sender: {
-		padding: RFValue(15),
+		padding: RFValue(10),
 		alignSelf: 'flex-start',
 		margin: 10,
 		maxHeight: '80%',
@@ -104,15 +102,36 @@ export default StyleSheet.create({
 		borderRadius: 20,
 		// borderColor: colors.meduimGrey,
 		backgroundColor: colors.white,
+		maxWidth: '75%',
+		width: '45%',
 	},
 	receivedText: {
 		fontSize: RFValue(14),
-		// color: colors.primaryBlue,
-
-		// margin: 10,
-		padding: RFValue(10),
+		padding: RFValue(0),
 	},
 	keyboard: {
 		flex: 1,
+	},
+	addTextView: {
+		flexDirection: 'row',
+		paddingHorizontal: RFValue(20),
+	},
+	errorText: {
+		color: 'red',
+		fontSize: RFValue(12),
+	},
+	userTop: {
+		flexDirection: 'row',
+		width: '100%',
+		justifyContent: 'flex-start',
+	},
+	userTopRight: {
+		flexDirection: 'row',
+		width: '100%',
+		justifyContent: 'flex-end',
+	},
+	editIcon: {
+		textAlign: 'right',
+		// flex: 1,
 	},
 });

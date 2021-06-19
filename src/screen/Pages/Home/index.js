@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect } from 'react';
+import React, { useState, useContext, useLayoutEffect } from 'react';
 import {
 	Text,
 	View,
@@ -6,17 +6,20 @@ import {
 	ScrollView,
 	RefreshControl,
 	TouchableOpacity,
+	Image,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Chats from '../Chats';
 import styles from './styles';
 import { auth } from '../../../../firebase';
 import { GlobalContext } from '../../../../GlobalContext';
 
 const Home = ({ navigation }) => {
-	const [refreshing, setRefreshing] = React.useState(false);
+	const [refreshing, setRefreshing] = useState(false);
 	const { username, setuserName } = useContext(GlobalContext);
+	const [showPopup, setPopupState] = useState(false);
 
 	const signOutHandler = () => {
 		auth.signOut().then(() => {
@@ -27,7 +30,9 @@ const Home = ({ navigation }) => {
 	const createChat = () => {
 		navigation.navigate('AddChat');
 	};
-
+	const showPopupHandler = () => {
+		setPopupState(!showPopup);
+	};
 	useLayoutEffect(() => {
 		navigation.setOptions({
 			title: 'Gossips',
@@ -48,11 +53,25 @@ const Home = ({ navigation }) => {
 			),
 			headerLeft: () => (
 				<View style={{ paddingLeft: 20 }}>
-					<Text>Hello, {auth?.currentUser?.displayName || username}</Text>
+					<Text style={{ position: 'relative' }}>
+						<TouchableOpacity activeOpacity={0.3} onPress={showPopupHandler}>
+							<FontAwesome name={'user-circle'} size={30} color='grey' />
+						</TouchableOpacity>
+						{showPopup && (
+							<View style={styles.popup}>
+								<Text style={styles.userInfo}>
+									Name: {auth?.currentUser?.displayName}
+								</Text>
+								<Text style={styles.userInfo}>
+									Email: {auth?.currentUser?.email}
+								</Text>
+							</View>
+						)}
+					</Text>
 				</View>
 			),
 		});
-	}, [navigation]);
+	}, [navigation, showPopup]);
 
 	const onRefresh = () => {
 		setRefreshing(true);
@@ -72,12 +91,12 @@ const Home = ({ navigation }) => {
 				<View>
 					<Chats navigation={navigation} />
 				</View>
-				<View style={styles.floatingIcon}>
-					<TouchableOpacity activeOpacity={0.5} onPress={createChat}>
-						<Ionicons name={'chatbox-outline'} size={30} color='white' />
-					</TouchableOpacity>
-				</View>
 			</ScrollView>
+			<View style={styles.floatingIcon}>
+				<TouchableOpacity activeOpacity={0.5} onPress={createChat}>
+					<Ionicons name={'chatbox-outline'} size={30} color='white' />
+				</TouchableOpacity>
+			</View>
 		</SafeAreaView>
 	);
 };

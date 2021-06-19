@@ -5,27 +5,29 @@ import colors from '../../resources/color';
 export default StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: colors.primaryBlue,
+		backgroundColor: colors.screenBg,
 	},
 	mainView: {
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
+		width: '100%',
 	},
 	textStyle: {
-		color: colors.white,
+		color: colors.textColor,
 		fontWeight: 'bold',
 		fontSize: RFValue(35),
 	},
 	btnStyle: {
-		backgroundColor: colors.white,
+		backgroundColor: colors.background,
 		marginTop: 20,
+		width: '100%',
 	},
 	btnStyle2: {
-		color: colors.white,
+		color: colors.textColor,
 	},
 	btnTextStyle: {
-		color: colors.primaryBlue,
+		color: colors.textColor,
 	},
 	bottomView: {
 		position: 'absolute',

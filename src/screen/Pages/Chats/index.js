@@ -2,47 +2,19 @@ import React, { useEffect, useState } from 'react';
 import {
 	SafeAreaView,
 	View,
-	VirtualizedList,
 	StyleSheet,
 	Text,
-	StatusBar,
 	FlatList,
 	TouchableOpacity,
+	TouchableWithoutFeedback,
 } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { db } from '../../../../firebase';
+import { dateConverter, timeStampConverter } from '../../utils/formatter';
 import styled from './styles';
 
 const Chats = ({ navigation }) => {
 	const [chatList, setChatList] = useState([]);
-
-	const timeStampConverter = (stamp) => {
-		let unix_timestamp = stamp;
-		// Create a new JavaScript Date object based on the timestamp
-		// multiplied by 1000 so that the argument is in milliseconds, not seconds.
-		let date = new Date(unix_timestamp * 1000);
-		// Hours part from the timestamp
-		let hours = date.getHours();
-		let prefix = hours >= '12' ? 'PM' : 'AM';
-		// Minutes part from the timestamp
-		let minutes = '0' + date.getMinutes();
-		// Seconds part from the timestamp
-		let seconds = '0' + date.getSeconds();
-
-		// Will display time in 10:30:23 format
-		let formattedTime = hours + ':' + minutes.substr(-2) + ' ' + prefix;
-
-		return formattedTime;
-	};
-
-	const dateConverter = (stamp) => {
-		let unix_timestamp = stamp;
-		// Create a new JavaScript Date object based on the timestamp
-		// multiplied by 1000 so that the argument is in milliseconds, not seconds.
-		let date = new Date(unix_timestamp * 1000);
-		let newDate =
-			date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-		return newDate;
-	};
 
 	useEffect(() => {
 		db.collection('chats')
@@ -55,14 +27,11 @@ const Chats = ({ navigation }) => {
 						timestamp: timeStampConverter(doc.data()?.timestamp?.seconds),
 						date: dateConverter(doc.data()?.timestamp?.seconds),
 						user: doc.data().user,
+						lastMessage: doc.data()?.lastMessage || '',
 					})),
 				);
 			});
 	}, []);
-
-	useEffect(() => {
-		console.log('list -->>', chatList);
-	}, [chatList]);
 
 	const Item = ({ title }) => (
 		<TouchableOpacity
@@ -75,27 +44,27 @@ const Chats = ({ navigation }) => {
 			}}
 		>
 			<View style={styles.item} key={title.chatName}>
-				<View style={styled.topView}>
-					<Text style={styles.title}>{title.chatName}</Text>
-					<Text style={styled.primaryText}>{title.timestamp}</Text>
+				<TouchableWithoutFeedback>
+					<FontAwesome name={'user-circle'} size={40} color='grey' />
+				</TouchableWithoutFeedback>
+				<View style={styles.chatbox}>
+					<View style={styled.topView}>
+						<Text style={styles.title}>{title.chatName}</Text>
+						<Text style={styled.primaryText}>{title.timestamp}</Text>
+					</View>
+					<Text
+						style={styled.primaryText}
+						numberOfLines={1}
+						ellipsizeMode='tail'
+					>
+						{title.lastMessage}
+					</Text>
 				</View>
-				<Text style={styled.primaryText} numberOfLines={1} ellipsizeMode='tail'>
-					Since the user object is in the URL, it's possible to pass a random
-					user object representing a user which doesn't exist, or has incorrect
-					data in the profile
-				</Text>
 			</View>
 		</TouchableOpacity>
 	);
 	return (
 		<SafeAreaView style={styles.container}>
-			{/* <VirtualizedList
-				data={chatList}
-				renderItem={(item) => <Item title={item} />}
-				keyExtractor={(item) => item.id}
-				getItemCount={getItemCount}
-				getItem={getItem}
-			/> */}
 			<FlatList
 				data={chatList}
 				renderItem={({ item }) => <Item title={item} />}
@@ -114,13 +83,20 @@ const styles = StyleSheet.create({
 		height: 80,
 		justifyContent: 'center',
 		marginBottom: 8,
-		padding: 20,
+		paddingVertical: 20,
+		paddingHorizontal: 35,
+		flexDirection: 'row',
 	},
 	title: {
 		fontSize: 16,
+		fontWeight: '500',
 	},
 	subtitle: {
 		fontSize: 12,
+	},
+	chatbox: {
+		width: '100%',
+		paddingLeft: 10,
 	},
 });
 

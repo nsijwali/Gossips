@@ -69,7 +69,10 @@ const Login = ({ navigation }) => {
 						/>
 					</View>
 					<View style={styles.flexRowView}>
-						<TouchableOpacity style={styles.linkStyle}>
+						<TouchableOpacity
+							style={styles.linkStyle}
+							onPress={() => navigation.navigate('ForgotPassword')}
+						>
 							<Text>Forgot password</Text>
 						</TouchableOpacity>
 						<TouchableOpacity style={styles.linkStyle}>
@@ -78,7 +81,13 @@ const Login = ({ navigation }) => {
 					</View>
 				</View>
 				<View style={styles.btnView}>
-					<Button text='Sign In' disabled={false} onPress={signInHanlder} />
+					<Button
+						text='Sign In'
+						disabled={false}
+						btnStyle={styles.buttonBg}
+						btnTextStyle={styles.btnColor}
+						onPress={signInHanlder}
+					/>
 					<TouchableWithoutFeedback>
 						<Text
 							style={styles.primaryText}

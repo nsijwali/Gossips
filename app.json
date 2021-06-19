@@ -1,34 +1,32 @@
 {
-  "expo": {
-    "name": "Coinbase",
-    "slug": "Coinbase",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon2.png",
-    "splash": {
-      "image": "./assets/icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.sijwali.Coinbase"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.sijwali.Coinbase"
-    },
-    "web": {
-      "favicon": "./assets/icon.png"
-    }
-  }
+	"expo": {
+		"name": "Coinbase",
+		"slug": "Coinbase",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon2.png",
+		"splash": {
+			"image": "./assets/chat.jpeg",
+			"resizeMode": "contain",
+			"backgroundColor": "#f8de7e"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "com.sijwali.Coinbase"
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/chat.jpeg",
+				"backgroundColor": "#f8de7e"
+			},
+			"package": "com.sijwali.Coinbase"
+		},
+		"web": {
+			"favicon": "./assets/chat.jpeg"
+		}
+	}
 }

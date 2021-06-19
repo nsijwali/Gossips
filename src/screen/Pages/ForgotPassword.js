@@ -1,19 +1,23 @@
-import React, { useLayoutEffect, useState, useContext } from 'react';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
-import firebase from 'firebase';
+import React, { useLayoutEffect, useState } from 'react';
+import {
+	View,
+	TextInput,
+	TouchableOpacity,
+	Text,
+	Alert,
+	Platform,
+} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import styles from './styles';
-import { db, auth } from '../../../../firebase';
-import { GlobalContext } from '../../../../GlobalContext';
+import styles from '../Pages/Chats/styles';
+import { auth } from '../../../firebase';
 
-const AddChat = ({ navigation }) => {
+const ForgotPassword = ({ navigation }) => {
 	const [addChat, setNewChat] = useState('');
 	const [error, setError] = useState('');
-	const { username, userPassword } = useContext(GlobalContext);
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
-			title: 'Add a new Chat',
+			title: 'Forgot Password',
 			headerShown: true,
 			headerStyle: {
 				backgroundColor: 'white',
@@ -26,22 +30,34 @@ const AddChat = ({ navigation }) => {
 		});
 	}, [navigation]);
 
+	const emailSent = () => {
+		Alert.alert('Success', 'password reset mail sent.', [
+			{
+				text: 'OK',
+				onPress: () => {
+					navigation.goBack();
+					setNewChat('');
+				},
+			},
+		]);
+	};
+
 	const addChatHandler = () => {
 		if (addChat.trim() !== '') {
 			setError('');
-			db.collection('chats')
-				.add({
-					chatName: addChat,
-					timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-					user: auth?.currentUser?.displayName,
-					passwrd: userPassword,
-				})
+			auth
+				.sendPasswordResetEmail(addChat)
 				.then(() => {
-					navigation.goBack();
+					if (Platform.OS === 'web') {
+						navigation.goBack();
+						alert('password reset mail sent.');
+					} else {
+						emailSent();
+					}
 				})
 				.catch((error) => console.log('db error', error));
 		} else {
-			setError('Provide a chat name');
+			setError('Provide an email address');
 			setTimeout(() => {
 				setError('');
 			}, 3000);
@@ -53,7 +69,7 @@ const AddChat = ({ navigation }) => {
 			<View style={styles.addChatView}>
 				<TextInput
 					value={addChat}
-					placeholder='Type chat name'
+					placeholder='Type your email address'
 					onChangeText={(text) => {
 						setNewChat(text);
 						setError('');
@@ -64,7 +80,7 @@ const AddChat = ({ navigation }) => {
 				/>
 				<TouchableOpacity activeOpacity={0.5}>
 					<MaterialCommunityIcons
-						name={'check-circle'}
+						name={'send-circle'}
 						size={48}
 						color='blue'
 						onPress={addChatHandler}
@@ -78,4 +94,4 @@ const AddChat = ({ navigation }) => {
 	);
 };
 
-export default AddChat;
+export default ForgotPassword;

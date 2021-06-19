@@ -11,7 +11,7 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
-		backgroundColor: colors.primaryBlue,
+		color: colors.primaryBlue,
 	},
 	btnText: {
 		color: colors.white,

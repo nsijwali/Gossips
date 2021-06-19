@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import {
 	View,
 	Text,
@@ -14,12 +14,14 @@ import {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import firebase from 'firebase';
 import styles from './styles';
+import { dateConverter, timeStampConverter } from '../../utils/formatter';
 import { db, auth } from '../../../../firebase';
 
 const Chat = ({ navigation, route }) => {
 	const [chat, setChat] = useState('');
 	const [text, setText] = useState('');
 	const [messageList, setMessageList] = useState([]);
+	const scrollViewRef = useRef(null);
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
@@ -41,34 +43,7 @@ const Chat = ({ navigation, route }) => {
 			setChat(route.params.chat);
 		}
 	}, [route.params?.chat]);
-	const timeStampConverter = (stamp) => {
-		let unix_timestamp = stamp;
-		// Create a new JavaScript Date object based on the timestamp
-		// multiplied by 1000 so that the argument is in milliseconds, not seconds.
-		let date = new Date(unix_timestamp * 1000);
-		// Hours part from the timestamp
-		let hours = date.getHours();
-		let prefix = hours >= '12' ? 'PM' : 'AM';
-		// Minutes part from the timestamp
-		let minutes = '0' + date.getMinutes();
-		// Seconds part from the timestamp
-		let seconds = '0' + date.getSeconds();
 
-		// Will display time in 10:30:23 format
-		let formattedTime = hours + ':' + minutes.substr(-2) + ' ' + prefix;
-
-		return formattedTime;
-	};
-
-	const dateConverter = (stamp) => {
-		let unix_timestamp = stamp;
-		// Create a new JavaScript Date object based on the timestamp
-		// multiplied by 1000 so that the argument is in milliseconds, not seconds.
-		let date = new Date(unix_timestamp * 1000);
-		let newDate =
-			date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-		return newDate;
-	};
 	useLayoutEffect(() => {
 		const unsubscribe = db
 			.collection('chats')
@@ -85,11 +60,12 @@ const Chat = ({ navigation, route }) => {
 					})),
 				),
 			);
+
 		return unsubscribe;
 	}, [route]);
 
 	useEffect(() => {
-		console.log('messageList', messageList);
+		scrollViewRef.current.scrollToEnd({ animated: true });
 	}, [messageList]);
 
 	const onEnter = () => {
@@ -102,6 +78,12 @@ const Chat = ({ navigation, route }) => {
 			});
 		}
 		setText('');
+		db.collection('chats').doc(route.params.id).set({
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+			lastMessage: text,
+			chatName: route.params.chat,
+			user: auth?.currentUser?.displayName,
+		});
 	};
 
 	return (
@@ -113,17 +95,29 @@ const Chat = ({ navigation, route }) => {
 				style={styles.keyboard}
 			>
 				<>
-					<ScrollView>
-						{messageList.map(({ data, id }) =>
+					<ScrollView ref={scrollViewRef}>
+						{messageList.map(({ data, id, timestamp }) =>
 							auth.currentUser.displayName === data.displayName ? (
 								<View key={id} style={styles.receiver}>
-									<Text style={styles.userText}>{data.displayName}</Text>
+									<View style={styles.userTop}>
+										<Text style={styles.userText}>{data.displayName}</Text>
+									</View>
+
 									<Text style={styles.currentUserText}>{data.message}</Text>
+									<View style={styles.userTopRight}>
+										<Text style={styles.userText}>{timestamp}</Text>
+									</View>
 								</View>
 							) : (
 								<View key={id} style={styles.sender}>
-									<Text style={styles.userText}>{data.displayName}</Text>
+									<View style={styles.userTop}>
+										<Text style={styles.userText}>{data.displayName}</Text>
+									</View>
+
 									<Text style={styles.receivedText}>{data.message}</Text>
+									<View style={styles.userTopRight}>
+										<Text style={styles.userText}>{timestamp}</Text>
+									</View>
 								</View>
 							),
 						)}
@@ -135,6 +129,7 @@ const Chat = ({ navigation, route }) => {
 							onChangeText={(text) => setText(text)}
 							autoCorrect={false}
 							style={styles.btnView}
+							onSubmitEditing={onEnter}
 						/>
 
 						<TouchableOpacity activeOpacity={0.5}>

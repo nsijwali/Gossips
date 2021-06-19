@@ -2,7 +2,14 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Welcome from '../src/screen/Welcome';
-import { Login, CreateAccount, Home, Chat, AddChat } from '../src/screen/auth';
+import {
+	Login,
+	CreateAccount,
+	Home,
+	Chat,
+	AddChat,
+	ForgotPassword,
+} from '../src/screen/auth';
 
 const RootNavigation = () => {
 	const Stack = createStackNavigator();
@@ -19,6 +26,7 @@ const RootNavigation = () => {
 				<Stack.Screen name='Home' component={Home} />
 				<Stack.Screen name='Chat' component={Chat} />
 				<Stack.Screen name='AddChat' component={AddChat} />
+				<Stack.Screen name='ForgotPassword' component={ForgotPassword} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

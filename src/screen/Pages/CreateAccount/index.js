@@ -97,7 +97,13 @@ const CreateAccount = ({ navigation }) => {
 					</View>
 				</View>
 				<View style={styles.btnView}>
-					<Button text='Sign Up' disabled={false} onPress={signupHandler} />
+					<Button
+						text='Sign Up'
+						btnStyle={styles.buttonBg}
+						btnTextStyle={styles.btnColor}
+						disabled={false}
+						onPress={signupHandler}
+					/>
 					<TouchableWithoutFeedback>
 						<Text
 							style={styles.primaryText}

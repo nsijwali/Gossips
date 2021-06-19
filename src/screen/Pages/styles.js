@@ -71,4 +71,10 @@ export default StyleSheet.create({
 		marginTop: 20,
 		flexDirection: 'row',
 	},
+	buttonBg: {
+		backgroundColor: colors.background,
+	},
+	btnColor: {
+		color: colors.textColor,
+	},
 });
