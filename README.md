@@ -52,6 +52,7 @@
 </a> -->
 
 [![Gossips][product-screenshot]](https://coinbase-dopple.web.app/)
+[![Gossips][product-screenshot2]](https://coinbase-dopple.web.app/)
 
 The app is mainly built for learning purpose. Created a chat app that sends and receives messages at real time. User can create account and login with the same account once created.
 Firebase authentication is used. Users are provided with an option to reset password in case they forget it.
@@ -120,3 +121,4 @@ Nitin Sijwali - sijwalinitin@gmail.com
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/nitinsij/
 [product-screenshot]: assets/Gossips.png
+[product-screenshot2]: assets/appLogo.png
