@@ -17,8 +17,6 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -49,7 +47,9 @@
 
 ## About The Project
 
-[![Gossips][assets/gossips.png]](https://coinbase-dopple.web.app/)
+<a href = "https://coinbase-dopple.web.app/">
+<img src="assets/gossips.png" alt="Gossips"/ rel="nofollow>
+</a>
 
 The app is mainly built for learning purpose. Created a chat app that sends and receives messages at real time. User can create account and login with the same account once created.
 Firebase authentication is used. Users are provided with an option to reset password in case they forget it.
