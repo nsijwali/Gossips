@@ -51,7 +51,7 @@
 <img src="assets/gossips.png" alt="Gossips"/ rel="nofollow>
 </a> -->
 
-[![Gossips][gossips.png]](https://coinbase-dopple.web.app/)
+[![Gossips][product-screenshot]](https://coinbase-dopple.web.app/)
 
 The app is mainly built for learning purpose. Created a chat app that sends and receives messages at real time. User can create account and login with the same account once created.
 Firebase authentication is used. Users are provided with an option to reset password in case they forget it.
